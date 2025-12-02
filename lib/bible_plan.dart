@@ -65,7 +65,7 @@ const Map<String, List<String>> dailyBibleReadings = {
   // 4th Week
   'Feb 22': ['Exodus 35', 'Psalms 92', 'Psalms 93', '1 Corinthians 4', '1 Corinthians 5'],
   'Feb 23': ['Exodus 36', 'Psalms 94', 'Psalms 95', '1 Corinthians 6'],
-  'Feb 24': ['Exodus 37', 'Psalms 96', 'Psalms 97', 'Psalms 98', 'Psalms 99' '1 Corinthians 7'],
+  'Feb 24': ['Exodus 37', 'Psalms 96', 'Psalms 97', 'Psalms 98', 'Psalms 99', '1 Corinthians 7'],
   'Feb 25': ['Exodus 38', 'Psalms 100', 'Psalms 101', '1 Corinthians 8', '1 Corinthians 9'],
   'Feb 26': ['Exodus 39', 'Exodus 40', 'Psalms 102', '1 Corinthians 10'],
   'Feb 27': ['Leviticus 1', 'Leviticus 2', 'Psalms 103', '1 Corinthians 11'],
