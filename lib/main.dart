@@ -3,7 +3,15 @@ import 'package:intl/intl.dart';
 import 'bible_plan.dart'; // Contains the dailyBibleReadings map
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    theme: ThemeData.dark().copyWith(
+      colorScheme: ColorScheme.dark(
+        primary: Colors.grey[100]!,
+        surface: Colors.grey[900]!,
+      ),
+    ),
+    home: const MyApp(),
+  ));
 }
 
 class TodaysDate {
@@ -107,6 +115,37 @@ class _MyAppState extends State<MyApp> {
       _isLoading = false;
     });
   }
+
+  // After initializing
+  Future<void> _calendar() async {
+    DateTime? _picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2200)
+    );
+
+    if (_picked != null) {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final pickedDate = DateTime(_picked.year, _picked.month, _picked.day);
+
+      // Calculate the offset from today
+      final offsetFromToday = pickedDate.difference(today).inDays;
+
+      // Calculate the target page index
+      final targetPage = (_totalPages ~/ 2) + today
+          .difference(DateTime(today.year, 1, 1))
+          .inDays + offsetFromToday;
+
+      // Navigate to that page
+      _pageController.animateToPage(
+        targetPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
   
   @override
   void dispose() {
@@ -134,24 +173,33 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold( 
         backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: Colors.grey[600],
+          backgroundColor: Colors.grey[850],
           title: Text(
-            // Use the data of the currently visible page for the title
-            _currentPageData.formattedDate, 
+            ' Readings', // Now shows the current date
             style: const TextStyle(
-              fontSize: 31,
+              fontSize: 29,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
-          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.calendar_today),
+              color: Colors.white,
+              onPressed: () {
+                _calendar();
+              },
+            ),
+            // Add more buttons here if needed
+          ],
+          centerTitle: false,
         ),
         
         // Use PageView for smooth horizontal swiping
         body: PageView.builder(
           controller: _pageController,
           itemCount: _totalPages, // The count is the very large number
-          
+
           // Update the AppBar title when a page transition is complete
           onPageChanged: (int newIndex) {
             setState(() {
@@ -169,6 +217,19 @@ class _MyAppState extends State<MyApp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  AppBar(
+                    backgroundColor: Colors.grey[600],
+                    title: Text(
+                      // Use the data of the currently visible page for the title
+                      _currentPageData.formattedDate,
+                      style: const TextStyle(
+                        fontSize: 29,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    centerTitle: true,
+                  ),
                   const SizedBox(height: 10),
                   for (int i = 0; i < readings.length; i++)
                   ... [
@@ -176,7 +237,7 @@ class _MyAppState extends State<MyApp> {
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(readings[i], style: textStyle),
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 40),
                     Divider(color: Colors.grey[850], thickness: 2),
                   ],
                 ],

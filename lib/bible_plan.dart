@@ -18,7 +18,7 @@ const Map<String, List<String>> dailyBibleReadings = {
   'Jan 14': ['Genesis 25', 'Genesis 26', 'Psalms 31', 'Matthew 16'],
   // 3rd Week
   'Jan 15': ['Genesis 27', 'Psalms 32', 'Matthew 17'],
-  'Jan 16': ['Genesis 28', 'Genesis 29', 'Pslams 33', 'Matthew 18'],
+  'Jan 16': ['Genesis 28', 'Genesis 29', 'Psalms 33', 'Matthew 18'],
   'Jan 17': ['Genesis 30', 'Psalms 34', 'Matthew 19'],
   'Jan 18': ['Genesis 31', 'Psalms 35', 'Matthew 20'],
   'Jan 19': ['Genesis 32', 'Genesis 33', 'Psalms 36', 'Matthew 21'],
@@ -41,8 +41,8 @@ const Map<String, List<String>> dailyBibleReadings = {
   // 1st Week
   'Feb 1': ['Exodus 5', 'Exodus 6', 'Psalms 58', 'Psalms 59', 'Romans 10', 'Romans 11'],
   'Feb 2': ['Exodus 7', 'Exodus 8', 'Psalms 60', 'Psalms 61', 'Romans 12'],
-  'Feb 3': ['Exodus 9', 'Pslams 62', 'Psalms 63', 'Romans 13', 'Romans 14'],
-  'Feb 4': ['Exodus 10', 'Pslams 64', 'Psalms 65', 'Romans 15', 'Romans 16'],
+  'Feb 3': ['Exodus 9', 'Psalms 62', 'Psalms 63', 'Romans 13', 'Romans 14'],
+  'Feb 4': ['Exodus 10', 'Psalms 64', 'Psalms 65', 'Romans 15', 'Romans 16'],
   'Feb 5': ['Exodus 11', 'Exodus 12', 'Psalms 66', 'Psalms 67', 'Mark 1'],
   'Feb 6': ['Exodus 13', 'Exodus 14', 'Psalms 68', 'Mark 2'],
   'Feb 7': ['Exodus 15', 'Psalms 69', 'Mark 3'],
@@ -72,9 +72,80 @@ const Map<String, List<String>> dailyBibleReadings = {
   'Feb 28': ['Leviticus 3', 'Leviticus 4', 'Psalms 104', '1 Corinthians 12', '1 Corinthians 13'],
   'Feb 29': ['Bro. Roberts did not ... ', '... account for leap year, so ... ', ' ... read your favorite chapters'], // Leap year day
 
-  // November
-  'Nov 24': ['Nehemiah 12', 'Amos 4', '2 Timothy 1'],
+  // March
+  // 1st Week
+  'Mar 1': ['Leviticus 5', 'Leviticus 6', 'Psalms 105', '1 Corinthians 14'],
+  'Mar 2': ['Leviticus 7', 'Psalms 106', '1 Corinthians 15'],
+  'Mar 3': ['Leviticus 8', 'Psalms 107', '1 Corinthians 16'],
+  'Mar 4': ['Leviticus 9', 'Leviticus 10', 'Psalms 108', 'Psalms 109', '2 Corinthians 1', '2 Corinthians 2'],
+  'Mar 5': ['Leviticus 11', 'Psalms 110', 'Psalms 111', 'Psalms 112', '2 Corinthians 3', '2 Corinthians 4'],
+  'Mar 6': ['Leviticus 12', 'Leviticus 13', 'Psalms 113', 'Psalms 114', '2 Corinthians 5', '2 Corinthians 6', '2 Corinthians 7'],
+  'Mar 7': ['Leviticus 14', 'Psalms 115', 'Psalms 116', '2 Corinthians 8', '2 Corinthians 9'],
+  // 2nd Week
+  'Mar 8': ['Leviticus 15', 'Psalms 117', 'Psalms 118', '2 Corinthians 10', '2 Corinthians 11'],
+  'Mar 9': ['Leviticus 16', 'Psalms 119 v1-40', '2 Corinthians 12', '2 Corinthians 13'],
+  'Mar 10': ['Leviticus 17', 'Leviticus 18', 'Psalms 119 v41-80', 'Luke 1'],
+  'Mar 11': ['Leviticus 19', 'Psalms 119 v81-128', 'Luke 2'],
+  'Mar 12': ['Leviticus 20', 'Psalms 119 v129-176', 'Luke 3'],
+  'Mar 13': ['Leviticus 21', 'Psalms 120', 'Psalms 121', 'Psalms 122', 'Psalms 123', 'Psalms 124', 'Luke 4'],
+  'Mar 14': ['Leviticus 22', 'Psalms 125', 'Psalms 126', 'Psalms 127', 'Luke 5'],
+  // 3rd Week
+  'Mar 15': ['Leviticus 23', 'Psalms 128', 'Psalms 129', 'Psalms 130', 'Luke 6'],
+  'Mar 16': ['Leviticus 24', 'Psalms 131', 'Psalms 132', 'Psalms 133', 'Psalms 134', 'Luke 7'],
+  'Mar 17': ['Leviticus 25', 'Psalms 135', 'Psalms 136', 'Luke 8'],
+  'Mar 18': ['Leviticus 26', 'Psalms 137', 'Psalms 138', 'Psalms 139', 'Luke 9'],
+  'Mar 19': ['Leviticus 27', 'Psalms 140', 'Psalms 141', 'Psalms 142', 'Luke 10'],
+  'Mar 20': ['Numbers 1', 'Psalms 143', 'Psalms 144', 'Luke 11'],
+  'Mar 21': ['Numbers 2', 'Psalms 145', 'Psalms 146', 'Psalms 147', 'Luke 12'],
+  // 4th Week
+  'Mar 22': ['Numbers 3', 'Psalms 148', 'Psalms 149', 'Psalms 150', 'Luke 13', 'Luke 14'],
+  'Mar 23': ['Numbers 4', 'Proverbs 1', 'Luke 15'],
+  'Mar 24': ['Numbers 5', 'Proverbs 2', 'Luke 16'],
+  'Mar 25': ['Numbers 6', 'Proverbs 3', 'Luke 17'],
+  'Mar 26': ['Numbers 7', 'Proverbs 4', 'Luke 18'],
+  'Mar 27': ['Numbers 8', 'Numbers 9', 'Proverbs 5', 'Luke 19'],
+  'Mar 28': ['Numbers 10', 'Proverbs 6', 'Luke 20'],
+  // Last Week
+  'Mar 29': ['Numbers 11', 'Proverbs 7', 'Luke 21'],
+  'Mar 30': ['Numbers 12', 'Numbers 13', 'Proverbs 8', 'Proverbs 9', 'Luke 22'],
+  'Mar 31': ['Numbers 14', 'Proverbs 20', 'Luke 23'],
 
+  // November
+  // 1st Week
+  'Nov 1': ['2 Chronicles 30', 'Daniel 10', 'Acts 10'],
+  'Nov 2': ['2 Chronicles 31', 'Daniel 11', 'Acts 11', 'Acts 12'],
+  'Nov 3': ['2 Chronicles 32', 'Daniel 12', 'Acts 13'],
+  'Nov 4': ['2 Chronicles 33', 'Hosea 1', 'Acts 14', 'Acts 15'],
+  'Nov 5': ['2 Chronicles 34', 'Hosea 2', 'Acts 16', 'Acts 17'],
+  'Nov 6': ['2 Chronicles 35', 'Hosea 3', 'Acts 18', 'Acts 19'],
+  'Nov 7': ['2 Chronicles 36', 'Hosea 4', 'Acts 20'],
+  // 2nd Week
+  'Nov 8': ['Ezra 1', 'Ezra 2', 'Hosea 5', 'Acts 21', 'Acts 22'],
+  'Nov 9': ['Ezra 3', 'Ezra 4', 'Hosea 6', 'Acts 23', 'Acts 24'],
+  'Nov 10': ['Ezra 5', 'Ezra 6', 'Hosea 7', 'Acts 25', 'Acts 26'],
+  'Nov 11': ['Ezra 7', 'Hosea 8', 'Acts 27'],
+  'Nov 12': ['Ezra 8', 'Hosea 9', 'Acts 28'],
+  'Nov 13': ['Ezra 9', 'Hosea 10', 'Colossians 1'],
+  'Nov 14': ['Ezra 10', 'Hosea 11', 'Colossians 2'],
+  // 3rd Week
+  'Nov 15': ['Nehemiah 1', 'Nehemiah 2', 'Hosea 12', 'Colossians 3', 'Colossians 4'],
+  'Nov 16': ['Nehemiah 3', 'Hosea 13', '1 Thessalonians 1', '1 Thessalonians 2'],
+  'Nov 17': ['Nehemiah 4', 'Hosea 14', '1 Thessalonians 3', '1 Thessalonians 4'],
+  'Nov 18': ['Nehemiah 5', 'Nehemiah 6', 'Joel 1', '1 Thessalonians 5'],
+  'Nov 19': ['Nehemiah 7', 'Joel 2', '2 Thessalonians 1', '2 Thessalonians 2'],
+  'Nov 20': ['Nehemiah 8', 'Joel 3', '2 Thessalonians 3'],
+  'Nov 21': ['Nehemiah 9', 'Amos 1', '1 Timothy 1', '1 Timothy 2', '1 Timothy 3'],
+  // 4th Week
+  'Nov 22': ['Nehemiah 10', 'Amos 2', '1 Timothy 4', '1 Timothy 5'],
+  'Nov 23': ['Nehemiah 11', 'Amos 3', '1 Timothy 6'],
+  'Nov 24': ['Nehemiah 12', 'Amos 4', '2 Timothy 1'],
+  'Nov 25': ['Nehemiah 13', 'Amos 5', '2 Timothy 2'],
+  'Nov 26': ['Esther 1', 'Amos 6', '2 Timothy 3', '2 Timothy 4'],
+  'Nov 27': ['Esther 2', 'Amos 7', 'Titus 1', 'Titus 2', 'Titus 3'],
+  'Nov 28': ['Esther 3', 'Esther 4', 'Amos 8', 'Philemon 1'],
+  // Last Week
+  'Nov 29': ['Esther 5', 'Esther 6', 'Amos 9', 'Hebrews 1', 'Hebrews 2'],
+  'Nov 30': ['Esther 7', 'Esther 8', 'Obadiah 1', 'Hebrews 3', 'Hebrews 4'],
 
   // December
   // 1st Week
@@ -96,7 +167,7 @@ const Map<String, List<String>> dailyBibleReadings = {
   // 3rd Week
   'Dec 15': ['Job 18', 'Job 19', 'Zephaniah 1', '2 Peter 3'],
   'Dec 16': ['Job 20', 'Zephaniah 2', '1 John 1', '1 John 2'],
-  'Dec 17': ['Job 21', 'Zephaniah 3', '1 Johm 3', '1 John 4'],
+  'Dec 17': ['Job 21', 'Zephaniah 3', '1 John 3', '1 John 4'],
   'Dec 18': ['Job 22', 'Haggai 1', 'Haggai 2', '1 John 5'],
   'Dec 19': ['Job 23', 'Job 24', 'Zechariah 1', '2 John 1', '3 John 1'],
   'Dec 20': ['Job 25', 'Job 26', 'Job 27', 'Zechariah 2', 'Zechariah 3', 'Jude 1'],
