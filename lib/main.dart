@@ -81,9 +81,9 @@ class _MyAppState extends State<MyApp> {
 
     // Formate date
     final dateKey = DateFormat.MMMd().format(date);
-    
+
     // Get the reading from the 366-day map
-    final readings = dailyBibleReadings[dateKey] ?? 
+    final readings = dailyBibleReadings[dateKey] ??
         ['No readings found for ${DateFormat('MMMM d, yyyy').format(date)} using key "$dateKey".'];
 
     return DayReadingData(
@@ -98,17 +98,17 @@ class _MyAppState extends State<MyApp> {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day); // Accounting midnight
     _planStartDate = DateTime(today.year, 1, 1); // Current date as the baseline
-    
+
     // The offset of 'today' from Jan 1 of the current year
     final todayOffset = today.difference(_planStartDate).inDays;
-    
+
     // Set the initial page index to be in the middle of the large range.
     // This allows swiping backward and forward.
     _initialPageIndex = (_totalPages ~/ 2) + todayOffset;
 
      // Get the data for the initial page
     _currentPageData = _getPageData(_initialPageIndex);
-    
+
     _pageController = PageController(initialPage: _initialPageIndex);
 
     setState(() {
@@ -146,7 +146,7 @@ class _MyAppState extends State<MyApp> {
       );
     }
   }
-  
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -162,15 +162,15 @@ class _MyAppState extends State<MyApp> {
         ),
       );
     }
-    
-    final TextStyle textStyle = const TextStyle(
-      fontSize: 29,
+
+    final TextStyle chapterStyle = const TextStyle(
+      fontSize: 29, // Chapters font size
       fontWeight: FontWeight.bold,
       color: Colors.white,
     );
-        
+
     return MaterialApp(
-      home: Scaffold( 
+      home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.grey[850],
@@ -194,7 +194,7 @@ class _MyAppState extends State<MyApp> {
           ],
           centerTitle: false,
         ),
-        
+
         // Use PageView for smooth horizontal swiping
         body: PageView.builder(
           controller: _pageController,
@@ -223,7 +223,7 @@ class _MyAppState extends State<MyApp> {
                       // Use the data of the currently visible page for the title
                       _currentPageData.formattedDate,
                       style: const TextStyle(
-                        fontSize: 29,
+                        fontSize: 30, // Date text size
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -234,11 +234,11 @@ class _MyAppState extends State<MyApp> {
                   for (int i = 0; i < readings.length; i++)
                   ... [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: Text(readings[i], style: textStyle),
+                      padding: const EdgeInsets.only(left: 20.0), // Indent from the edge (left) of the screen
+                      child: Text(readings[i], style: chapterStyle),
                     ),
-                    const SizedBox(height: 40),
-                    Divider(color: Colors.grey[850], thickness: 2),
+                    const SizedBox(height: 20), // Space (gaps) in between each chapters
+                    Divider(color: Colors.grey[850], thickness: 2), // Line colors and width
                   ],
                 ],
               ),
