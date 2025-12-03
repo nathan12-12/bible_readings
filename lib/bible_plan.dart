@@ -70,7 +70,7 @@ const Map<String, List<String>> dailyBibleReadings = {
   'Feb 26': ['Exodus 39', 'Exodus 40', 'Psalms 102', '1 Corinthians 10'],
   'Feb 27': ['Leviticus 1', 'Leviticus 2', 'Psalms 103', '1 Corinthians 11'],
   'Feb 28': ['Leviticus 3', 'Leviticus 4', 'Psalms 104', '1 Corinthians 12', '1 Corinthians 13'],
-  'Feb 29': ['Bro. Roberts did not ... ', '... account for leap year, so ... ', ' ... read your favorite chapters'], // Leap year day
+  'Feb 29': ['Bro. Roberts did not ... ', '... account for leap year ... ', ' ... So, read your favorite ... ', ' ... chapters, have a ... ', ' ... good day. God Bless!'], // Leap year day
 
   // March
   // 1st Week

@@ -14,33 +14,14 @@ void main() {
   ));
 }
 
-class TodaysDate {
-  // Use a final DateTime as the source of truth
-  final DateTime date; 
-  
-  // Constructor: takes the initial start date (Jan 1) and adds an offset (when)
-  TodaysDate({required DateTime startDate, required int offset}) 
-    : date = startDate.add(Duration(days: offset));
-
-  // Used for the AppBar title ("December 2, 2025")
-  String get formattedDate {
-    return DateFormat('MMMM d, yyyy').format(date);
-  }
-  
-  // Used as the key for the reading plan ('Dec 2')
-  String get dateKey => DateFormat.MMMd().format(date);
-}
-
 class DayReadingData {
   final DateTime date;
   final List<String> readings;
 
   DayReadingData({required this.date, required this.readings});
   
-  // Helper to format the date for the AppBar (used by the onPageChanged callback)
   String get formattedDate => DateFormat('MMMM d, yyyy').format(date);
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -50,19 +31,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static const int _totalPages = 65536; // 2^16 days for "infinite" swiping
-  // A fixed start date for the plan (Jan 1 of the current year)
-  late final DateTime _planStartDate;
+  static const int _totalPages = 262144; // 2^18 days For "infinite" swiping
   
-  // The index corresponding to today's date in the _yearReadings list
-  late int _initialPageIndex;
-  // The DayReadingData object for the currently displayed page (used for AppBar)
+  // Base date for page 0 - far in the past (using UTC to avoid timezone issues)
+  final DateTime _baseDate = DateTime.utc(1950, 1, 1);
+  
   late DayReadingData _currentPageData;
-
-  // PageController manages the PageView position
-  late PageController _pageController; 
-  
-  // Flag to manage the loading state
+  late PageController _pageController;
   bool _isLoading = true;
 
   @override
@@ -70,75 +45,57 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _initializeData();
   }
-  
-  // To dynamically calculate data for any page index
-  DayReadingData _getPageData(int index) {
-    // Calculate the actual DateTime: Add the index offset to a distant starting point.
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day); // Accounting midnight
-    final todayOffset = (_totalPages ~/ 2) + today.difference(DateTime(today.year, 1, 1)).inDays;
-    final date = today.add(Duration(days: index - todayOffset));
 
-    // Formate date
-    final dateKey = DateFormat.MMMd().format(date);
-
-    // Get the reading from the 366-day map
+  // Simple: page index = days since base date
+  DayReadingData _getPageData(int pageIndex) {
+    final date = _baseDate.add(Duration(days: pageIndex));
+    // Convert back to local time for display
+    final localDate = DateTime(date.year, date.month, date.day);
+    
+    final dateKey = DateFormat.MMMd().format(localDate);
     final readings = dailyBibleReadings[dateKey] ??
-        ['No readings found for ${DateFormat('MMMM d, yyyy').format(date)} using key "$dateKey".'];
+        ['No readings found for ${DateFormat('MMMM d, yyyy').format(localDate)} using key "$dateKey".'];
 
     return DayReadingData(
-      date: date,
+      date: localDate,
       readings: readings,
     );
   }
 
-  // Pre-calculate all data and find the initial position
+  // Convert a date to its page index
+  int _dateToPageIndex(DateTime date) {
+    // Convert to UTC for consistent calculation
+    final normalizedDate = DateTime.utc(date.year, date.month, date.day);
+    final difference = normalizedDate.difference(_baseDate);
+    return difference.inDays;
+  }
+
   void _initializeData() {
-    // Determine the start of the current year
+    // Find today's page (use UTC for calculation)
     final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day); // Accounting midnight
-    _planStartDate = DateTime(today.year, 1, 1); // Current date as the baseline
-
-    // The offset of 'today' from Jan 1 of the current year
-    final todayOffset = today.difference(_planStartDate).inDays;
-
-    // Set the initial page index to be in the middle of the large range.
-    // This allows swiping backward and forward.
-    _initialPageIndex = (_totalPages ~/ 2) + todayOffset;
-
-     // Get the data for the initial page
-    _currentPageData = _getPageData(_initialPageIndex);
-
-    _pageController = PageController(initialPage: _initialPageIndex);
+    final today = DateTime.utc(now.year, now.month, now.day);
+    final initialPage = today.difference(_baseDate).inDays;
+    
+    _currentPageData = _getPageData(initialPage);
+    _pageController = PageController(initialPage: initialPage);
 
     setState(() {
       _isLoading = false;
     });
   }
 
-  // After initializing
   Future<void> _calendar() async {
     DateTime? _picked = await showDatePicker(
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(1900),
+        initialDate: _currentPageData.date,
+        firstDate: DateTime(1950),
         lastDate: DateTime(2200)
     );
 
     if (_picked != null) {
-      final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
-      final pickedDate = DateTime(_picked.year, _picked.month, _picked.day);
+      // Simply convert the picked date to its page index
+      final targetPage = _dateToPageIndex(_picked);
 
-      // Calculate the offset from today
-      final offsetFromToday = pickedDate.difference(today).inDays;
-
-      // Calculate the target page index
-      final targetPage = (_totalPages ~/ 2) + today
-          .difference(DateTime(today.year, 1, 1))
-          .inDays + offsetFromToday;
-
-      // Navigate to that page
       _pageController.animateToPage(
         targetPage,
         duration: const Duration(milliseconds: 300),
@@ -164,7 +121,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     final TextStyle chapterStyle = const TextStyle(
-      fontSize: 29, // Chapters font size
+      fontSize: 29,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     );
@@ -175,9 +132,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           backgroundColor: Colors.grey[850],
           title: Text(
-            ' Readings', // Now shows the current date
+            ' Bible Companion',
             style: const TextStyle(
-              fontSize: 29,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
@@ -190,25 +147,20 @@ class _MyAppState extends State<MyApp> {
                 _calendar();
               },
             ),
-            // Add more buttons here if needed
           ],
           centerTitle: false,
         ),
 
-        // Use PageView for smooth horizontal swiping
         body: PageView.builder(
           controller: _pageController,
-          itemCount: _totalPages, // The count is the very large number
+          itemCount: _totalPages,
 
-          // Update the AppBar title when a page transition is complete
           onPageChanged: (int newIndex) {
             setState(() {
-              // Dynamically fetch the data for the new index
               _currentPageData = _getPageData(newIndex);
             });
           },
 
-          // Builder now uses the _getPageData method
           itemBuilder: (BuildContext context, int index) {
             final data = _getPageData(index);
             final readings = data.readings;
@@ -220,10 +172,9 @@ class _MyAppState extends State<MyApp> {
                   AppBar(
                     backgroundColor: Colors.grey[600],
                     title: Text(
-                      // Use the data of the currently visible page for the title
                       _currentPageData.formattedDate,
                       style: const TextStyle(
-                        fontSize: 30, // Date text size
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
@@ -234,11 +185,11 @@ class _MyAppState extends State<MyApp> {
                   for (int i = 0; i < readings.length; i++)
                   ... [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0), // Indent from the edge (left) of the screen
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: Text(readings[i], style: chapterStyle),
                     ),
-                    const SizedBox(height: 20), // Space (gaps) in between each chapters
-                    Divider(color: Colors.grey[850], thickness: 2), // Line colors and width
+                    const SizedBox(height: 20),
+                    Divider(color: Colors.grey[850], thickness: 2),
                   ],
                 ],
               ),
